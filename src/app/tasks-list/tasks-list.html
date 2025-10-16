@@ -2,6 +2,10 @@
 <button class="btn btn-primary" (click)="setAction('add')">Ajouter une tâche</button>
 @if(action === "add"){
 <app-tasks-add></app-tasks-add>
+} @if(action === "edit"){
+<app-tasks-edit [selectedTask]="selectedTask"></app-tasks-edit>
+<button type="button" class="btn btn-secondary" (click)="setAction('')">Annuler</button>
+
 }
 <table class="table">
   <thead>
@@ -15,12 +19,12 @@
   <tbody>
     @for (task of tasks; track task.id) {
     <tr>
-      <th scope="row">{{task.id}}</th>
-      <td>{{task.taskName}}</td>
-      <td>{{task.taskStatus}}</td>
+      <th scope="row">{{ task.id }}</th>
+      <td>{{ task.taskName }}</td>
+      <td>{{ task.taskStatus }}</td>
       <td>
-        <button class="btn btn-success">Editer</button>
-        <button class="btn btn-danger">Supprimer</button>
+        <button class="btn btn-success" (click)="setAction('edit', task.id)">Editer</button>
+        <button class="btn btn-danger" (click)="deleteTask(task.id)">Supprimer</button>
       </td>
     </tr>
     }
